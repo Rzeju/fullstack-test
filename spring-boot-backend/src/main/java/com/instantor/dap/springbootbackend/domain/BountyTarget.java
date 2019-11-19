@@ -15,7 +15,7 @@ public class BountyTarget {
     private Long bountyAmount;
 
     //data base bounties list simulator - available bounties to take
-    private static List<BountyTarget> bountiesList = new ArrayList<>();
+    private static transient List<BountyTarget> bountiesList = new ArrayList<>();
 
     public BountyTarget(String targetName, Long targetPower, Long bountyAmount) {
         this.targetId = idGenerator;
@@ -38,5 +38,25 @@ public class BountyTarget {
 
     public Long getBountyAmount() {
         return bountyAmount;
+    }
+
+    public static Long getIdGenerator() {
+        return idGenerator;
+    }
+
+    public Long getTargetId() {
+        return targetId;
+    }
+
+    public String getTargetName() {
+        return targetName;
+    }
+
+    public Long getTargetPower() {
+        return targetPower;
+    }
+
+    public static List<BountyTarget> getBountiesList() {
+        return bountiesList;
     }
 }

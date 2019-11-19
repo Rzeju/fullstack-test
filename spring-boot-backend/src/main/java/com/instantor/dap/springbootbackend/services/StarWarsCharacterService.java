@@ -1,12 +1,23 @@
 package com.instantor.dap.springbootbackend.services;
 
+import com.instantor.dap.springbootbackend.domain.BountyHunter;
+import com.instantor.dap.springbootbackend.services.Utils.ListResponseWrapper;
+import com.instantor.dap.springbootbackend.services.Utils.StringResponseWrapper;
+
 public interface StarWarsCharacterService {
 
-    String getWelcomeMessage();
+    StringResponseWrapper getWelcomeMessage();
 
-    String getVaderDescription();
+    StringResponseWrapper getVaderDescription();
 
-    void createBountyHunter(String firstName, String secondName);
+    StringResponseWrapper getBountyHunterPocket(Long hunterId);
 
-    String startMission(Long hunterId, Long targetId, Long targetPower);
+    ListResponseWrapper getBountyHuntersList();
+
+    ListResponseWrapper getBountyTargetList();
+
+    BountyHunter createBountyHunter(String firstName, String secondName);
+
+    StringResponseWrapper startMission(Long hunterId, Long targetId);
+
 }

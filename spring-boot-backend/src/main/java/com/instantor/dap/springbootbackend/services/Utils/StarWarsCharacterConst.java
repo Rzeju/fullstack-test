@@ -1,4 +1,4 @@
-package com.instantor.dap.springbootbackend.services;
+package com.instantor.dap.springbootbackend.services.Utils;
 
 public class StarWarsCharacterConst {
 

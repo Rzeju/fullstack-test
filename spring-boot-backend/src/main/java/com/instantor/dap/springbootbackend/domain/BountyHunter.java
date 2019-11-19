@@ -20,7 +20,7 @@ public class BountyHunter {
     //List of all earned bounties
     private List<BountyTarget> listOfBounties = new ArrayList<>();
     //data base bounties list simulator - storing all earned bounties for Hunter
-    private static List<BountyHunter> listOfBountyHunters = new ArrayList<>();
+    private static transient List<BountyHunter> listOfBountyHunters = new ArrayList<>();
 
     public BountyHunter(String firstName, String secondName) {
         this.hunterId = idGenerator;
@@ -69,6 +69,30 @@ public class BountyHunter {
                 ", secondName='" + secondName + '\'' +
                 ", hunterPower=" + hunterPower +
                 '}';
+    }
+
+    public static Long getIdGenerator() {
+        return idGenerator;
+    }
+
+    public Long getHunterId() {
+        return hunterId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public static Random getPowerGenerator() {
+        return powerGenerator;
+    }
+
+    public static Long getPowerUpperBoundary() {
+        return powerUpperBoundary;
     }
 }
 
