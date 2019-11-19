@@ -1,43 +1,72 @@
-import React, {useEffect, useState} from "react"
-import axios from 'axios';
-import {Button} from 'react-bootstrap';
-import {ButtonToolbar} from 'react-bootstrap';
+import React, {Component} from "react"
 import MissionDetailsComp from './MissionDetailsComp';
 import TheForceUnleashedComp from './TheForceUnleashedComp'
+import {Button, ButtonToolbar} from 'react-bootstrap';
+
 /**
  * This component should show some information about a Star Wars character.
  * @returns {*}
  * @constructor
  */
-const MyComponent = () => {
-    const [name, setName] = useState("Luke");
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/v1/sw/character/introduction')
-            .then(res => {
-                setName(res.data);
-            });
-        setName("Luke")
-    }, []);
+class StartingScreen extends Component {
 
-    function getMissionDetailsView() {
-        MissionDetailsComp.renderTheView();
+    constructor(props) {
+        super(props);
+        this.handleMissionDetailsView = this.handleMissionDetailsView.bind(this);
+        this.handleForceUnleashedView = this.handleForceUnleashedView.bind(this);
+        this.state = {
+            isStartingScreen: true,
+            isMissionDetailsScreen: false,
+            isForceUnleashedScreen: false,
+            description: []
+        };
     }
 
-    function getForceUnleashedView() {
-        TheForceUnleashedComp.renderTheView();
+    handleMissionDetailsView() {
+        this.setState({isMissionDetailsScreen: true, isStartingScreen: false});
     }
 
-    return <div>
-        Character: {name}
+    handleForceUnleashedView() {
+        this.setState({isForceUnleashedScreen: true, isStartingScreen: false});
+    }
 
-        <div className="buttonContainer">
-            <ButtonToolbar className="buttonToolbar">
-                <Button variant="danger" onClick={ getMissionDetailsView  }>Mission Details</Button>
+    componentDidMount() {
+        fetch("http://localhost:8080/api/v1/sw/character/introduction")
+            .then(result => result.json())
+            .then(json => this.setState({description: json.results}))
+    }
 
-                <Button variant="waring" onClick={ getForceUnleashedView }>The Force Unleashed</Button>
-            </ButtonToolbar>
-        </div>
-    </div>
-};
+    render() {
+        const isStartingScreen = this.state.isStartingScreen;
+        const isMissionDetailsScreen = this.state.isMissionDetailsScreen;
+        const isForceUnleashedScreen = this.state.isForceUnleashedScreen;
+        if (isStartingScreen) {
 
-export default MyComponent
+            return (
+                <div>
+                    <div>
+                    {this.state.description}
+                    </div>
+                    <div className="buttonContainer">
+                        <ButtonToolbar className="buttonToolbar">
+                            <Button variant="danger" onClick={this.handleMissionDetailsView}>Mission Details</Button>
+
+                            <Button variant="waring" onClick={this.handleForceUnleashedView}>The Force
+                                Unleashed</Button>
+                        </ButtonToolbar>
+                    </div>
+                </div>
+            )
+        }
+
+        if (isMissionDetailsScreen) {
+            return <MissionDetailsComp/>
+        }
+
+        if (isForceUnleashedScreen) {
+            return <TheForceUnleashedComp/>
+        }
+    }
+}
+
+export default StartingScreen

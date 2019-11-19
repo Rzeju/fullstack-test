@@ -16,11 +16,20 @@ class MissionDetailsComp extends Component {
     };
 
     componentDidMount() {
-        axios.get('http://localhost:8080/api/v1/sw/character/description')
-            .then(res => {
-                const description = res.data;
-                this.setState({ description });
-            })
+        fetch("http://localhost:8080/api/v1/sw/character/introduction")
+            .then(result => {
+                return result.json();
+            }).then(data => {
+                let description = data.result.map[(disc) => {
+                    return (
+                        <div>
+                            disc.result
+                        </div>
+                    )
+            }]
+        this.setState({description: description})
+        })
+
     }
 
     renderTheView() {
@@ -32,19 +41,7 @@ class MissionDetailsComp extends Component {
             <div className="container">
                 <h1>MISSION DETAILS</h1>
 
-                <p> { this.state.description }</p>
-
-                <p> Behold one of the darkest character in the Universe soldier. </p>
-
-                <p> This is a Black Start of the Empire. Sith Lord, Darth Vader </p>
-
-                <p> Previously known as lovely boy Anakin Skywalker, today he is embodied of the evil and betray </p>
-
-                <p> Your mission won't be easy, soldier. You will risk yours and ours lifes </p>
-
-                <p> We got one more advice for you. Do not smoke some much... </p>
-
-                <p> Cigarettes make you to start breath like him! </p>
+                {this.state.description}
 
 
                 <br/>
@@ -56,4 +53,4 @@ class MissionDetailsComp extends Component {
     }
 }
 
-export default new MissionDetailsComp()
+export default MissionDetailsComp

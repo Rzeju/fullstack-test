@@ -23,7 +23,7 @@ class TheForceUnleashedComp extends Component {
     }
 
     renderTheView() {
-        ReactDOM.render(this.render(), document.getElementById('root'));
+        return ReactDOM.render(this.render(), document.getElementById('root'));
     }
 
     render() {
@@ -50,4 +50,4 @@ class TheForceUnleashedComp extends Component {
     }
 }
 
-export default new TheForceUnleashedComp()
+export default TheForceUnleashedComp
